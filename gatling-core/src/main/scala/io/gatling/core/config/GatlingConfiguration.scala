@@ -249,6 +249,7 @@ object GatlingConfiguration extends StrictLogging {
   private def dataConfiguration(config: Config) =
     new DataConfiguration(
       dataWriters = config.getStringList(data.Writers).asScala.flatMap(DataWriterType.findByName(_).toList).toSeq,
+      dataWriterClasses = Option.when(config.hasPath(data.WriterClasses))(config.getStringList(data.WriterClasses).asScala.toSeq).getOrElse(Seq()),
       console = new ConsoleDataWriterConfiguration(
         light = config.getBoolean(data.console.Light),
         writePeriod = config.getInt(data.console.WritePeriod).seconds
@@ -400,6 +401,7 @@ final class DnsConfiguration(
 
 final class DataConfiguration(
     val dataWriters: Seq[DataWriterType],
+    val dataWriterClasses: Seq[String],
     val file: FileDataWriterConfiguration,
     val leak: LeakDataWriterConfiguration,
     val console: ConsoleDataWriterConfiguration,

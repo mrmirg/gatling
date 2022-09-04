@@ -28,6 +28,6 @@ private[gatling] case object Uninitialized extends DataWriterState
 private[gatling] case object Initialized extends DataWriterState
 private[gatling] case object Terminated extends DataWriterState
 
-private[gatling] trait DataWriterData
+trait DataWriterData
 private[gatling] case object NoData extends DataWriterData
 private[gatling] final case class InitData(configuration: GatlingConfiguration) extends DataWriterData
